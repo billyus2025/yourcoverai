@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +10,7 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
     }
+
     .loading-spinner {
       border: 3px solid #f3f4f6;
       border-top: 3px solid #0f766e;
@@ -19,54 +21,77 @@
       display: inline-block;
       margin-right: 8px;
     }
+
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
+
     .fade-in {
       animation: fadeIn 0.3s ease-in;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .lang-dropdown {
       position: relative;
       display: inline-block;
     }
+
     .lang-dropdown-content {
       display: none;
       position: absolute;
       right: 0;
       background-color: white;
       min-width: 180px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1000;
       border-radius: 8px;
       overflow: hidden;
       margin-top: 4px;
     }
+
     .lang-dropdown-content.show {
       display: block;
     }
+
     .lang-option {
       padding: 12px 16px;
       cursor: pointer;
       transition: background-color 0.2s;
       border-bottom: 1px solid #f3f4f6;
     }
+
     .lang-option:hover {
       background-color: #f9fafb;
     }
+
     .lang-option.active {
       background-color: #0f766e;
       color: white;
     }
+
     .lang-option:last-child {
       border-bottom: none;
     }
   </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
   <!-- Header -->
   <div class="bg-white shadow-sm border-b">
@@ -78,451 +103,451 @@
         </div>
         <div class="flex items-center gap-4">
           <!-- Pricing Button -->
-          <a href="pricing.html" class="px-4 py-2 rounded-lg text-sm font-medium bg-[#0f766e] text-white hover:bg-[#0d6b63] transition-colors">
+          <a href="pricing.html"
+            class="px-4 py-2 rounded-lg text-sm font-medium bg-[#0f766e] text-white hover:bg-[#0d6b63] transition-colors">
             Pricing
           </a>
           <!-- Language Switcher -->
           <div class="lang-dropdown">
-            <button
-              id="langBtn"
-              class="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 hover:bg-gray-50 bg-white flex items-center gap-2"
-            >
+            <button id="langBtn"
+              class="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 hover:bg-gray-50 bg-white flex items-center gap-2">
               <span id="langBtnText">EN</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-          <div id="langDropdown" class="lang-dropdown-content">
-            <div class="lang-option" data-lang="en">English</div>
-            <div class="lang-option" data-lang="zh">中文</div>
-            <div class="lang-option" data-lang="es">Español</div>
-            <div class="lang-option" data-lang="fr">Français</div>
-            <div class="lang-option" data-lang="de">Deutsch</div>
-            <div class="lang-option" data-lang="pt">Português</div>
-            <div class="lang-option" data-lang="ja">日本語</div>
-            <div class="lang-option" data-lang="ko">한국어</div>
-            <div class="lang-option" data-lang="ar">العربية</div>
-            <div class="lang-option" data-lang="hi">हिन्दी</div>
+            <div id="langDropdown" class="lang-dropdown-content">
+              <div class="lang-option" data-lang="en">English</div>
+              <div class="lang-option" data-lang="zh">中文</div>
+              <div class="lang-option" data-lang="es">Español</div>
+              <div class="lang-option" data-lang="fr">Français</div>
+              <div class="lang-option" data-lang="de">Deutsch</div>
+              <div class="lang-option" data-lang="pt">Português</div>
+              <div class="lang-option" data-lang="ja">日本語</div>
+              <div class="lang-option" data-lang="ko">한국어</div>
+              <div class="lang-option" data-lang="ar">العربية</div>
+              <div class="lang-option" data-lang="hi">हिन्दी</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Main Content -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Left: Input Section -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <div class="flex items-center justify-between mb-2">
-          <label for="userInput" id="inputLabel" class="block text-sm font-medium text-gray-700">
-            Job Description
-          </label>
-          <div id="usageInfo" class="text-xs text-gray-500">
-            <span id="freeUsageText">Free users: 3 generations per day</span>
-            <span id="proUsageText" class="hidden text-[#0f766e] font-medium">Pro: Unlimited</span>
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left: Input Section -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="userInput" id="inputLabel" class="block text-sm font-medium text-gray-700">
+              Job Description
+            </label>
+            <div id="usageInfo" class="text-xs text-gray-500">
+              <span id="freeUsageText">Free users: 3 generations per day</span>
+              <span id="proUsageText" class="hidden text-[#0f766e] font-medium">Pro: Unlimited</span>
+            </div>
           </div>
-        </div>
-        <textarea
-          id="userInput"
-          rows="12"
-          class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0f766e] focus:border-transparent resize-none text-gray-900 placeholder-gray-400"
-          style="max-height: 300px; overflow-y: auto;"
-        ></textarea>
-        <button
-          id="submitBtn"
-          class="mt-4 w-full bg-[#0f766e] hover:bg-[#0d6b63] text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-        >
-          <span id="btnText">Generate Cover Letter</span>
-        </button>
-      </div>
-
-      <!-- Right: Output Section -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <div class="flex items-center justify-between mb-2">
-          <label id="outputLabel" class="block text-sm font-medium text-gray-700">
-            Generated Cover Letter
-          </label>
-          <button
-            id="copyBtn"
-            class="text-sm text-[#0f766e] hover:text-[#0d6b63] font-medium px-3 py-1 rounded transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            style="display: none;"
-          >
-            Copy
+          <textarea id="userInput" rows="12"
+            class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0f766e] focus:border-transparent resize-none text-gray-900 placeholder-gray-400"
+            style="max-height: 300px; overflow-y: auto;"></textarea>
+          <button id="submitBtn"
+            class="mt-4 w-full bg-[#0f766e] hover:bg-[#0d6b63] text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+            <span id="btnText">Generate Cover Letter</span>
           </button>
         </div>
-        <div id="loadingState" class="hidden text-center py-12">
-          <div class="loading-spinner mx-auto mb-4"></div>
-          <p id="loadingText" class="text-gray-600">AI is writing your cover letter…</p>
+
+        <!-- Right: Output Section -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center justify-between mb-2">
+            <label id="outputLabel" class="block text-sm font-medium text-gray-700">
+              Generated Cover Letter
+            </label>
+            <button id="copyBtn"
+              class="text-sm text-[#0f766e] hover:text-[#0d6b63] font-medium px-3 py-1 rounded transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              style="display: none;">
+              Copy
+            </button>
+          </div>
+          <div id="loadingState" class="hidden text-center py-12">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p id="loadingText" class="text-gray-600">AI is writing your cover letter…</p>
+          </div>
+          <textarea id="output" rows="12" readonly
+            class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 resize-none fade-in"
+            style="display: none; min-height: 300px;"></textarea>
+          <div id="emptyState" class="text-center py-12 text-gray-400">
+            <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+              </path>
+            </svg>
+            <p id="emptyStateText">Your generated cover letter will appear here</p>
+          </div>
         </div>
-        <textarea
-          id="output"
-          rows="12"
-          readonly
-          class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 resize-none fade-in"
-          style="display: none; min-height: 300px;"
-        ></textarea>
-        <div id="emptyState" class="text-center py-12 text-gray-400">
-          <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-          <p id="emptyStateText">Your generated cover letter will appear here</p>
+      </div>
+
+      <!-- Pricing Section -->
+      <div id="pricing" class="max-w-5xl mx-auto mt-16 mb-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-2">Choose Your Plan</h2>
+          <p class="text-gray-600 mb-2">Unlock unlimited cover letter generation</p>
+          <p class="text-sm text-gray-500">Free users: 3 generations per day. Pro users: unlimited.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Monthly Plan -->
+          <div
+            class="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#0f766e] transition-all relative">
+            <div class="absolute top-0 right-0 bg-[#0f766e] text-white px-4 py-1 rounded-bl-lg text-sm font-medium">
+              Popular
+            </div>
+            <div class="mb-6">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro Monthly</h3>
+              <div class="flex items-baseline">
+                <span class="text-5xl font-bold text-gray-900">$9.9</span>
+                <span class="text-gray-600 ml-2">/month</span>
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">Unlimited generations</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">All 10 languages supported</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">Priority support</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">Cancel anytime</span>
+              </li>
+            </ul>
+            <button id="subscribeMonthly"
+              class="w-full bg-[#0f766e] hover:bg-[#0d6b63] text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg">
+              Subscribe Monthly
+            </button>
+          </div>
+
+          <!-- Yearly Plan -->
+          <div class="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#0f766e] transition-all">
+            <div class="mb-6">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro Yearly</h3>
+              <div class="flex items-baseline">
+                <span class="text-5xl font-bold text-gray-900">$79</span>
+                <span class="text-gray-600 ml-2">/year</span>
+              </div>
+              <div class="mt-2">
+                <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+                  Save $39.8 (33% off)
+                </span>
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">Unlimited generations</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">All 10 languages supported</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">Priority support</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700">Best value - 33% savings</span>
+              </li>
+            </ul>
+            <button id="subscribeYearly"
+              class="w-full bg-[#0f766e] hover:bg-[#0d6b63] text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg">
+              Subscribe Yearly
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Pricing Section -->
-    <div id="pricing" class="max-w-5xl mx-auto mt-16 mb-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Choose Your Plan</h2>
-        <p class="text-gray-600 mb-2">Unlock unlimited cover letter generation</p>
-        <p class="text-sm text-gray-500">Free users: 3 generations per day. Pro users: unlimited.</p>
-      </div>
+    <script>
+      // API Configuration
+      // Use relative paths since Worker is bound to /api/*
+      const API_BASE_URL = '';
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Monthly Plan -->
-        <div class="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#0f766e] transition-all relative">
-          <div class="absolute top-0 right-0 bg-[#0f766e] text-white px-4 py-1 rounded-bl-lg text-sm font-medium">
-            Popular
-          </div>
-          <div class="mb-6">
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro Monthly</h3>
-            <div class="flex items-baseline">
-              <span class="text-5xl font-bold text-gray-900">$9.9</span>
-              <span class="text-gray-600 ml-2">/month</span>
-            </div>
-          </div>
-          <ul class="space-y-3 mb-8">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">Unlimited generations</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">All 10 languages supported</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">Priority support</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">Cancel anytime</span>
-            </li>
-          </ul>
-          <button
-            id="subscribeMonthly"
-            class="w-full bg-[#0f766e] hover:bg-[#0d6b63] text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
-          >
-            Subscribe Monthly
-          </button>
-        </div>
+      // Language configuration
+      const SUPPORTED_LANGUAGES = {
+        en: 'English',
+        zh: '中文',
+        es: 'Español',
+        fr: 'Français',
+        de: 'Deutsch',
+        pt: 'Português',
+        ja: '日本語',
+        ko: '한국어',
+        ar: 'العربية',
+        hi: 'हिन्दी'
+      };
 
-        <!-- Yearly Plan -->
-        <div class="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#0f766e] transition-all">
-          <div class="mb-6">
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro Yearly</h3>
-            <div class="flex items-baseline">
-              <span class="text-5xl font-bold text-gray-900">$79</span>
-              <span class="text-gray-600 ml-2">/year</span>
-            </div>
-            <div class="mt-2">
-              <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
-                Save $39.8 (33% off)
-              </span>
-            </div>
-          </div>
-          <ul class="space-y-3 mb-8">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">Unlimited generations</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">All 10 languages supported</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">Priority support</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-gray-700">Best value - 33% savings</span>
-            </li>
-          </ul>
-          <button
-            id="subscribeYearly"
-            class="w-full bg-[#0f766e] hover:bg-[#0d6b63] text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
-          >
-            Subscribe Yearly
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+      // Current language and translations
+      let currentLang = 'en';
+      let translations = {};
 
-  <script>
-    // API Configuration
-    // If frontend is deployed on GitHub Pages, use Worker URL directly
-    // If frontend is served from Worker, use relative paths
-    const API_BASE_URL = window.location.hostname === 'yourcoverai.com' || window.location.hostname.includes('github.io')
-      ? 'https://yourcoverai.billyus2025.workers.dev'
-      : '';
+      // DOM elements
+      const userInput = document.getElementById('userInput');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const output = document.getElementById('output');
+      const copyBtn = document.getElementById('copyBtn');
+      const loadingState = document.getElementById('loadingState');
+      const emptyState = document.getElementById('emptyState');
+      const langBtn = document.getElementById('langBtn');
+      const langBtnText = document.getElementById('langBtnText');
+      const langDropdown = document.getElementById('langDropdown');
+      const langOptions = document.querySelectorAll('.lang-option');
 
-    // Language configuration
-    const SUPPORTED_LANGUAGES = {
-      en: 'English',
-      zh: '中文',
-      es: 'Español',
-      fr: 'Français',
-      de: 'Deutsch',
-      pt: 'Português',
-      ja: '日本語',
-      ko: '한국어',
-      ar: 'العربية',
-      hi: 'हिन्दी'
-    };
-
-    // Current language and translations
-    let currentLang = 'en';
-    let translations = {};
-
-    // DOM elements
-    const userInput = document.getElementById('userInput');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
-    const output = document.getElementById('output');
-    const copyBtn = document.getElementById('copyBtn');
-    const loadingState = document.getElementById('loadingState');
-    const emptyState = document.getElementById('emptyState');
-    const langBtn = document.getElementById('langBtn');
-    const langBtnText = document.getElementById('langBtnText');
-    const langDropdown = document.getElementById('langDropdown');
-    const langOptions = document.querySelectorAll('.lang-option');
-
-    // Detect browser language
-    function detectLanguage() {
-      const savedLang = localStorage.getItem('yourcoverai_lang');
-      if (savedLang && SUPPORTED_LANGUAGES[savedLang]) {
-        return savedLang;
-      }
-      
-      const browserLang = navigator.language || navigator.userLanguage;
-      const langCode = browserLang.split('-')[0].toLowerCase();
-      
-      if (SUPPORTED_LANGUAGES[langCode]) {
-        return langCode;
-      }
-      
-      return 'en'; // Default to English
-    }
-
-    // Load language pack
-    async function loadLanguage(lang) {
-      try {
-        const response = await fetch(`/i18n/${lang}.json`);
-        if (!response.ok) {
-          throw new Error(`Failed to load language pack: ${lang}`);
+      // Detect browser language
+      function detectLanguage() {
+        const savedLang = localStorage.getItem('yourcoverai_lang');
+        if (savedLang && SUPPORTED_LANGUAGES[savedLang]) {
+          return savedLang;
         }
-        translations = await response.json();
-        currentLang = lang;
-        localStorage.setItem('yourcoverai_lang', lang);
-        updateUI();
-      } catch (error) {
-        console.error('Error loading language pack:', error);
-        // Fallback to English if language pack fails to load
-        if (lang !== 'en') {
-          await loadLanguage('en');
+
+        const browserLang = navigator.language || navigator.userLanguage;
+        const langCode = browserLang.split('-')[0].toLowerCase();
+
+        if (SUPPORTED_LANGUAGES[langCode]) {
+          return langCode;
+        }
+
+        return 'en'; // Default to English
+      }
+
+      // Load language pack
+      async function loadLanguage(lang) {
+        try {
+          const response = await fetch(`/i18n/${lang}.json`);
+          if (!response.ok) {
+            throw new Error(`Failed to load language pack: ${lang}`);
+          }
+          translations = await response.json();
+          currentLang = lang;
+          localStorage.setItem('yourcoverai_lang', lang);
+          updateUI();
+        } catch (error) {
+          console.error('Error loading language pack:', error);
+          // Fallback to English if language pack fails to load
+          if (lang !== 'en') {
+            await loadLanguage('en');
+          }
         }
       }
-    }
 
-    // Update UI with current translations
-    function updateUI() {
-      if (!translations || Object.keys(translations).length === 0) {
-        return;
+      // Update UI with current translations
+      function updateUI() {
+        if (!translations || Object.keys(translations).length === 0) {
+          return;
+        }
+
+        // Update page title and subtitle
+        document.getElementById('pageTitle').textContent = translations.title;
+        document.getElementById('pageSubtitle').textContent = translations.subtitle;
+        document.title = `${translations.title} - ${translations.subtitle}`;
+
+        // Update input section
+        document.getElementById('inputLabel').textContent = translations.job_description_label;
+        userInput.placeholder = translations.job_description_placeholder;
+
+        // Update button
+        if (!submitBtn.disabled) {
+          btnText.textContent = translations.generate_btn;
+        }
+
+        // Update output section
+        document.getElementById('outputLabel').textContent = translations.output_label;
+        if (copyBtn.style.display !== 'none') {
+          copyBtn.textContent = translations.copy_btn;
+        }
+        document.getElementById('loadingText').textContent = translations.loading_message;
+        document.getElementById('emptyStateText').textContent = translations.output_label;
+
+        // Update language button
+        langBtnText.textContent = currentLang.toUpperCase();
+
+        // Update language dropdown active state
+        langOptions.forEach(option => {
+          option.classList.toggle('active', option.dataset.lang === currentLang);
+        });
+
+        // Update HTML lang attribute for RTL languages
+        if (currentLang === 'ar' || currentLang === 'he') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        } else {
+          document.documentElement.setAttribute('dir', 'ltr');
+        }
+        document.documentElement.setAttribute('lang', currentLang);
       }
 
-      // Update page title and subtitle
-      document.getElementById('pageTitle').textContent = translations.title;
-      document.getElementById('pageSubtitle').textContent = translations.subtitle;
-      document.title = `${translations.title} - ${translations.subtitle}`;
-      
-      // Update input section
-      document.getElementById('inputLabel').textContent = translations.job_description_label;
-      userInput.placeholder = translations.job_description_placeholder;
-      
-      // Update button
-      if (!submitBtn.disabled) {
-        btnText.textContent = translations.generate_btn;
-      }
-      
-      // Update output section
-      document.getElementById('outputLabel').textContent = translations.output_label;
-      if (copyBtn.style.display !== 'none') {
-        copyBtn.textContent = translations.copy_btn;
-      }
-      document.getElementById('loadingText').textContent = translations.loading_message;
-      document.getElementById('emptyStateText').textContent = translations.output_label;
-      
-      // Update language button
-      langBtnText.textContent = currentLang.toUpperCase();
-      
-      // Update language dropdown active state
-      langOptions.forEach(option => {
-        option.classList.toggle('active', option.dataset.lang === currentLang);
-      });
-
-      // Update HTML lang attribute for RTL languages
-      if (currentLang === 'ar' || currentLang === 'he') {
-        document.documentElement.setAttribute('dir', 'rtl');
-      } else {
-        document.documentElement.setAttribute('dir', 'ltr');
-      }
-      document.documentElement.setAttribute('lang', currentLang);
-    }
-
-    // Language switcher
-    langBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      langDropdown.classList.toggle('show');
-    });
-
-    langOptions.forEach(option => {
-      option.addEventListener('click', async (e) => {
+      // Language switcher
+      langBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const selectedLang = option.dataset.lang;
-        if (selectedLang !== currentLang) {
-          await loadLanguage(selectedLang);
-        }
-        langDropdown.classList.remove('show');
+        langDropdown.classList.toggle('show');
       });
-    });
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
-        langDropdown.classList.remove('show');
-      }
-    });
+      langOptions.forEach(option => {
+        option.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const selectedLang = option.dataset.lang;
+          if (selectedLang !== currentLang) {
+            await loadLanguage(selectedLang);
+          }
+          langDropdown.classList.remove('show');
+        });
+      });
 
-    // Check license status on load
-    function checkLicenseStatus() {
-      const license = localStorage.getItem('yc_license');
-      const freeUsageText = document.getElementById('freeUsageText');
-      const proUsageText = document.getElementById('proUsageText');
-      
-      if (license) {
-        freeUsageText.classList.add('hidden');
-        proUsageText.classList.remove('hidden');
-      } else {
-        freeUsageText.classList.remove('hidden');
-        proUsageText.classList.add('hidden');
-      }
-    }
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+          langDropdown.classList.remove('show');
+        }
+      });
 
-    // Initialize with detected language
-    (async () => {
-      const detectedLang = detectLanguage();
-      await loadLanguage(detectedLang);
-      checkLicenseStatus();
-    })();
+      // Check license status on load
+      function checkLicenseStatus() {
+        const license = localStorage.getItem('yc_license');
+        const freeUsageText = document.getElementById('freeUsageText');
+        const proUsageText = document.getElementById('proUsageText');
 
-    // Generate cover letter
-    submitBtn.addEventListener('click', async () => {
-      const input = userInput.value.trim();
-      
-      if (!input) {
-        alert(translations.error_message || 'Please enter a job description');
-        return;
-      }
-
-      // Disable button and show loading
-      submitBtn.disabled = true;
-      btnText.innerHTML = `<div class="loading-spinner"></div>${translations.generate_btn || 'Generating...'}`;
-      loadingState.classList.remove('hidden');
-      output.style.display = 'none';
-      emptyState.style.display = 'none';
-      copyBtn.style.display = 'none';
-
-      // Get license key from localStorage
-      const license = localStorage.getItem('yc_license');
-      
-      try {
-        const headers = {
-          'Content-Type': 'application/json'
-        };
-        
-        // Add license key to headers if available
         if (license) {
-          headers['x-license-key'] = license;
+          freeUsageText.classList.add('hidden');
+          proUsageText.classList.remove('hidden');
+        } else {
+          freeUsageText.classList.remove('hidden');
+          proUsageText.classList.add('hidden');
+        }
+      }
+
+      // Initialize with detected language
+      (async () => {
+        const detectedLang = detectLanguage();
+        await loadLanguage(detectedLang);
+        checkLicenseStatus();
+      })();
+
+      // Generate cover letter
+      submitBtn.addEventListener('click', async () => {
+        const input = userInput.value.trim();
+
+        if (!input) {
+          alert(translations.error_message || 'Please enter a job description');
+          return;
         }
 
-        let res;
+        // Disable button and show loading
+        submitBtn.disabled = true;
+        btnText.innerHTML = `<div class="loading-spinner"></div>${translations.generate_btn || 'Generating...'}`;
+        loadingState.classList.remove('hidden');
+        output.style.display = 'none';
+        emptyState.style.display = 'none';
+        copyBtn.style.display = 'none';
+
+        // Get license key from localStorage
+        const license = localStorage.getItem('yc_license');
+
         try {
-          res = await fetch(`${API_BASE_URL}/api/generate`, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({ 
-              input,
-              target_language: currentLang
-            })
-          });
-        } catch (networkError) {
-          // Network error (no internet, CORS, etc.)
-          throw new Error(`Network error: Unable to connect to server. Please check your internet connection.`);
-        }
+          const headers = {
+            'Content-Type': 'application/json'
+          };
 
-        // Parse response
-        let data;
-        try {
-          data = await res.json();
-        } catch (parseError) {
-          // Response is not JSON
-          const text = await res.text();
-          throw new Error(`Server error (${res.status}): ${text || res.statusText}`);
-        }
+          // Add license key to headers if available
+          if (license) {
+            headers['x-license-key'] = license;
+          }
 
-        // Check HTTP status
-        if (!res.ok) {
-          const errorMsg = data.error || data.message || `HTTP ${res.status}: ${res.statusText}`;
-          throw new Error(errorMsg);
-        }
-        
-        if (data.error) {
-          // Handle free limit reached
-          if (data.error === 'free_limit_reached') {
-            loadingState.classList.add('hidden');
-            emptyState.style.display = 'block';
-            copyBtn.style.display = 'none';
-            
-            // Remove existing upgrade prompt if any
-            const existingPrompt = document.getElementById('upgradePrompt');
-            if (existingPrompt) {
-              existingPrompt.remove();
-            }
-            
-            // Show upgrade prompt
-            const upgradePrompt = document.createElement('div');
-            upgradePrompt.id = 'upgradePrompt';
-            upgradePrompt.className = 'bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4';
-            upgradePrompt.innerHTML = `
+          let res;
+          try {
+            res = await fetch(`${API_BASE_URL}/api/generate`, {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify({
+                input,
+                target_language: currentLang
+              })
+            });
+          } catch (networkError) {
+            // Network error (no internet, CORS, etc.)
+            throw new Error(`Network error: Unable to connect to server. Please check your internet connection.`);
+          }
+
+          // Parse response
+          let data;
+          try {
+            data = await res.json();
+          } catch (parseError) {
+            // Response is not JSON
+            const text = await res.text();
+            throw new Error(`Server error (${res.status}): ${text || res.statusText}`);
+          }
+
+          // Check HTTP status
+          if (!res.ok) {
+            const errorMsg = data.error || data.message || `HTTP ${res.status}: ${res.statusText}`;
+            throw new Error(errorMsg);
+          }
+
+          if (data.error) {
+            // Handle free limit reached
+            if (data.error === 'free_limit_reached') {
+              loadingState.classList.add('hidden');
+              emptyState.style.display = 'block';
+              copyBtn.style.display = 'none';
+
+              // Remove existing upgrade prompt if any
+              const existingPrompt = document.getElementById('upgradePrompt');
+              if (existingPrompt) {
+                existingPrompt.remove();
+              }
+
+              // Show upgrade prompt
+              const upgradePrompt = document.createElement('div');
+              upgradePrompt.id = 'upgradePrompt';
+              upgradePrompt.className = 'bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4';
+              upgradePrompt.innerHTML = `
               <div class="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <p class="text-yellow-800 font-medium">You reached your daily free limit.</p>
@@ -533,148 +558,149 @@
                 </a>
               </div>
             `;
-            emptyState.parentNode.insertBefore(upgradePrompt, emptyState);
-            throw new Error(data.message || 'Free limit reached');
+              emptyState.parentNode.insertBefore(upgradePrompt, emptyState);
+              throw new Error(data.message || 'Free limit reached');
+            }
+            throw new Error(data.error || 'Unknown error occurred');
           }
-          throw new Error(data.error || 'Unknown error occurred');
-        }
 
-        const coverLetter = data.output || 'No output generated';
-        
-        // Show output
-        output.value = coverLetter;
-        output.style.display = 'block';
-        loadingState.classList.add('hidden');
-        emptyState.style.display = 'none';
-        copyBtn.style.display = 'block';
-        copyBtn.textContent = translations.copy_btn;
-        
-        // Scroll output into view
-        output.scrollTop = 0;
-        
-      } catch (error) {
-        console.error('Generate error:', error);
-        
-        // Show user-friendly error message
-        let errorMessage = error.message || 'An unknown error occurred';
-        
-        // Map common errors to user-friendly messages
-        if (errorMessage.includes('Network error')) {
-          errorMessage = 'Unable to connect to server. Please check your internet connection and try again.';
-        } else if (errorMessage.includes('HTTP 500')) {
-          errorMessage = 'Server error. Please try again in a moment. If the problem persists, contact support.';
-        } else if (errorMessage.includes('HTTP 401') || errorMessage.includes('HTTP 403')) {
-          errorMessage = 'Authentication error. Please refresh the page and try again.';
-        } else if (errorMessage.includes('HTTP 404')) {
-          errorMessage = 'API endpoint not found. The service may be under maintenance.';
-        } else if (errorMessage.includes('OPENAI_API_KEY')) {
-          errorMessage = 'Service configuration error. Please contact support.';
-        }
-        
-        // Show error alert with helpful message
-        alert(`Error: ${errorMessage}\n\nIf this problem persists, please:\n1. Check your internet connection\n2. Refresh the page\n3. Contact support if needed`);
-        
-        loadingState.classList.add('hidden');
-        emptyState.style.display = 'block';
-        copyBtn.style.display = 'none';
-      } finally {
-        // Re-enable button
-        submitBtn.disabled = false;
-        btnText.textContent = translations.generate_btn;
-      }
-    });
+          const coverLetter = data.output || 'No output generated';
 
-    // Copy button functionality
-    copyBtn.addEventListener('click', async () => {
-      const text = output.value;
-      
-      if (!text) {
-        return;
-      }
-
-      try {
-        await navigator.clipboard.writeText(text);
-        
-        // Show "Copied!" feedback
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = translations.copied_message || 'Copied!';
-        copyBtn.classList.add('text-green-600');
-        
-        setTimeout(() => {
+          // Show output
+          output.value = coverLetter;
+          output.style.display = 'block';
+          loadingState.classList.add('hidden');
+          emptyState.style.display = 'none';
+          copyBtn.style.display = 'block';
           copyBtn.textContent = translations.copy_btn;
-          copyBtn.classList.remove('text-green-600');
-        }, 1000);
-      } catch (err) {
-        console.error('Failed to copy:', err);
-        alert(translations.error_message || 'Failed to copy to clipboard');
-      }
-    });
 
-    // Allow Enter key to submit (Ctrl+Enter or Cmd+Enter)
-    userInput.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        e.preventDefault();
-        submitBtn.click();
-      }
-    });
+          // Scroll output into view
+          output.scrollTop = 0;
 
-    // Stripe Public Key
-    const STRIPE_PUBLIC_KEY = 'pk_test_51SY6XZ2Ws8I86hFp887t51RDELZUOQRlPA6j428v2Z22MxV2waS4kQFK4mTHlruNgtdj2u8dyAFZNkeVk3WisBYN00sLvBrd0I';
+        } catch (error) {
+          console.error('Generate error:', error);
 
-    // Handle Subscribe buttons
-    async function createCheckoutSession(plan) {
-      const button = plan === 'monthly' 
-        ? document.getElementById('subscribeMonthly') 
-        : document.getElementById('subscribeYearly');
-      
-      const originalText = button.textContent;
-      button.disabled = true;
-      button.textContent = 'Loading...';
+          // Show user-friendly error message
+          let errorMessage = error.message || 'An unknown error occurred';
 
-      try {
-        const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ plan })
-        });
+          // Map common errors to user-friendly messages
+          if (errorMessage.includes('Network error')) {
+            errorMessage = 'Unable to connect to server. Please check your internet connection and try again.';
+          } else if (errorMessage.includes('HTTP 500')) {
+            errorMessage = 'Server error. Please try again in a moment. If the problem persists, contact support.';
+          } else if (errorMessage.includes('HTTP 401') || errorMessage.includes('HTTP 403')) {
+            errorMessage = 'Authentication error. Please refresh the page and try again.';
+          } else if (errorMessage.includes('HTTP 404')) {
+            errorMessage = 'API endpoint not found. The service may be under maintenance.';
+          } else if (errorMessage.includes('OPENAI_API_KEY')) {
+            errorMessage = 'Service configuration error. Please contact support.';
+          }
 
-        // Check if response is ok
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({ error: `HTTP ${response.status}: ${response.statusText}` }));
-          throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+          // Show error alert with helpful message
+          alert(`Error: ${errorMessage}\n\nIf this problem persists, please:\n1. Check your internet connection\n2. Refresh the page\n3. Contact support if needed`);
+
+          loadingState.classList.add('hidden');
+          emptyState.style.display = 'block';
+          copyBtn.style.display = 'none';
+        } finally {
+          // Re-enable button
+          submitBtn.disabled = false;
+          btnText.textContent = translations.generate_btn;
+        }
+      });
+
+      // Copy button functionality
+      copyBtn.addEventListener('click', async () => {
+        const text = output.value;
+
+        if (!text) {
+          return;
         }
 
-        const data = await response.json();
+        try {
+          await navigator.clipboard.writeText(text);
 
-        if (data.error) {
-          throw new Error(data.error);
-        }
+          // Show "Copied!" feedback
+          const originalText = copyBtn.textContent;
+          copyBtn.textContent = translations.copied_message || 'Copied!';
+          copyBtn.classList.add('text-green-600');
 
-        if (data.url) {
-          // Redirect to Stripe Checkout
-          window.location.href = data.url;
-        } else {
-          throw new Error('No checkout URL received from server');
+          setTimeout(() => {
+            copyBtn.textContent = translations.copy_btn;
+            copyBtn.classList.remove('text-green-600');
+          }, 1000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          alert(translations.error_message || 'Failed to copy to clipboard');
         }
-      } catch (error) {
-        console.error('Checkout error:', error);
-        const errorMessage = error.message || 'Failed to create checkout session. Please try again.';
-        alert('Error: ' + errorMessage + '\n\nPlease check:\n1. Worker is deployed\n2. Stripe environment variables are configured\n3. Network connection is stable');
-        button.disabled = false;
-        button.textContent = originalText;
+      });
+
+      // Allow Enter key to submit (Ctrl+Enter or Cmd+Enter)
+      userInput.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          submitBtn.click();
+        }
+      });
+
+      // Stripe Public Key
+      const STRIPE_PUBLIC_KEY = 'pk_test_51SY6XZ2Ws8I86hFp887t51RDELZUOQRlPA6j428v2Z22MxV2waS4kQFK4mTHlruNgtdj2u8dyAFZNkeVk3WisBYN00sLvBrd0I';
+
+      // Handle Subscribe buttons
+      async function createCheckoutSession(plan) {
+        const button = plan === 'monthly'
+          ? document.getElementById('subscribeMonthly')
+          : document.getElementById('subscribeYearly');
+
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = 'Loading...';
+
+        try {
+          const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ plan })
+          });
+
+          // Check if response is ok
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ error: `HTTP ${response.status}: ${response.statusText}` }));
+            throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const data = await response.json();
+
+          if (data.error) {
+            throw new Error(data.error);
+          }
+
+          if (data.url) {
+            // Redirect to Stripe Checkout
+            window.location.href = data.url;
+          } else {
+            throw new Error('No checkout URL received from server');
+          }
+        } catch (error) {
+          console.error('Checkout error:', error);
+          const errorMessage = error.message || 'Failed to create checkout session. Please try again.';
+          alert('Error: ' + errorMessage + '\n\nPlease check:\n1. Worker is deployed\n2. Stripe environment variables are configured\n3. Network connection is stable');
+          button.disabled = false;
+          button.textContent = originalText;
+        }
       }
-    }
 
-    // Add event listeners for Subscribe buttons
-    document.getElementById('subscribeMonthly').addEventListener('click', () => {
-      createCheckoutSession('monthly');
-    });
+      // Add event listeners for Subscribe buttons
+      document.getElementById('subscribeMonthly').addEventListener('click', () => {
+        createCheckoutSession('monthly');
+      });
 
-    document.getElementById('subscribeYearly').addEventListener('click', () => {
-      createCheckoutSession('yearly');
-    });
-  </script>
+      document.getElementById('subscribeYearly').addEventListener('click', () => {
+        createCheckoutSession('yearly');
+      });
+    </script>
 </body>
+
 </html>

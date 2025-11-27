@@ -153,28 +153,50 @@ async function handleCheckoutSuccess(request, env) {
 // Main Router
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
-    const pathname = url.pathname;
-    const method = request.method;
+    try {
+      const url = new URL(request.url);
+      const pathname = url.pathname;
+      const method = request.method;
 
-    // CORS Preflight
-    if (method === "OPTIONS") return handleCors();
+      // CORS Preflight
+      if (method === "OPTIONS") return handleCors();
 
-    // Routes
-    if (pathname === "/api/generate" && method === "POST") {
-      return handleGenerate(request, env);
+      // Routes
+      if (pathname === "/api/generate" && method === "POST") {
+        return handleGenerate(request, env);
+      }
+
+      // Support both new and legacy checkout routes
+      if ((pathname === "/api/checkout" || pathname === "/api/create-checkout-session" || pathname === "/create-checkout-session") && method === "POST") {
+        return handleCheckout(request, env);
+      }
+
+      if ((pathname === "/api/checkout/success" || pathname === "/checkout-success") && method === "GET") {
+        return handleCheckoutSuccess(request, env);
+      }
+
+      // 路由: /api/health
+      if (pathname === "/api/health" && method === "GET") {
+        return jsonResponse({ status: "ok", version: "1.0.0" });
+      }
+
+      // 路由: /api/license/verify
+      if (pathname === "/api/license/verify" && method === "POST") {
+        try {
+          const { license_key } = await request.json();
+          if (!license_key) return errorResponse("Missing license_key", 400);
+          const check = await checkLicense(env, license_key, config.slug);
+          return jsonResponse(check);
+        } catch (e) {
+          return errorResponse(e.message, 500);
+        }
+      }
+
+      // 404
+      return errorResponse(`Route ${pathname} not found`, 404);
+    } catch (err) {
+      console.error("Global Worker Error:", err);
+      return errorResponse(err.message || "Internal Server Error", 500);
     }
-
-    // Support both new and legacy checkout routes
-    if ((pathname === "/api/checkout" || pathname === "/api/create-checkout-session" || pathname === "/create-checkout-session") && method === "POST") {
-      return handleCheckout(request, env);
-    }
-
-    if ((pathname === "/api/checkout/success" || pathname === "/checkout-success") && method === "GET") {
-      return handleCheckoutSuccess(request, env);
-    }
-
-    // 404
-    return errorResponse(`Route ${pathname} not found`, 404);
   }
 };

@@ -2,6 +2,10 @@ name = "yourcoverai"
 main = "worker.js"
 compatibility_date = "2024-01-01"
 
+[routes]
+pattern = "yourcoverai.com/api/*"
+zone_name = "yourcoverai.com"
+
 [[kv_namespaces]]
 binding = "LICENSES"
 id = "99176a33bd1f4293be4380fe7c425ac7"
