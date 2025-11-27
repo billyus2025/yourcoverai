@@ -30,10 +30,23 @@ async function handleGenerate(request, env) {
           canProceed = true; // Paid user = unlimited
           userPlan = session.user.plan;
         } else {
-          // Free user logged in - still subject to limits? 
-          // For now, let's say logged in free users still get IP limits or maybe slightly higher?
-          // Let's stick to IP limits for free users for simplicity, or we could track usage by email.
-          // To keep it simple and robust: Fallback to IP check if plan is free.
+          // Free user logged in - Track usage by Email
+          const dateStr = new Date().toISOString().split('T')[0];
+          const usageKey = `${config.slug}:usage:${session.user.email}:${dateStr}`;
+          let usage = await env.FREE_USAGE.get(usageKey);
+          usage = usage ? parseInt(usage) : 0;
+
+          if (usage < 3) {
+            // Increment usage
+            await env.FREE_USAGE.put(usageKey, (usage + 1).toString(), { expirationTtl: 86400 });
+            canProceed = true;
+          } else {
+            return jsonResponse({
+              error: "free_limit_reached",
+              message: "Daily limit reached. Upgrade for unlimited access.",
+              upgrade_url: "/#pricing"
+            }, 200);
+          }
         }
       }
     }
@@ -47,7 +60,7 @@ async function handleGenerate(request, env) {
       }
     }
 
-    // C. Free Tier Fallback
+    // C. Free Tier Fallback (Guest IP)
     if (!canProceed) {
       const ip = request.headers.get("CF-Connecting-IP") || "unknown";
       const ua = request.headers.get("User-Agent") || "unknown";
