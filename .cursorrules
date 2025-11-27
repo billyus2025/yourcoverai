@@ -44,3 +44,11 @@ Your goal is to build **scalable, automated, and profitable** assets (Static Sit
 1.  **Code & Comments**: English Only.
 2.  **User Content**: Target language (English for US sites, Chinese for CN sites).
 </language_policy>
+
+<language_policy>
+## STRICT LANGUAGE PROTOCOL
+1.  **Conversation & Explanation**: ALWAYS use **Simplified Chinese (简体中文)** to communicate with the user.
+2.  **Product Content (UI/UX)**: ALWAYS use **English (US)** for all visible text, labels, buttons, and errors. The target audience is Global/US.
+3.  **Code Structure**: Variable names and logic must be English.
+4.  **Comments**: Chinese comments are allowed for complex logic explanation.
+</language_policy>

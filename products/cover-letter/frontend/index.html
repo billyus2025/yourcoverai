@@ -20,15 +20,11 @@
 
 
 
-  <textarea id="userInput" rows="5"
-
-    class="w-full bg-slate-800 p-2 rounded mb-4"></textarea>
+  <textarea id="userInput" rows="5" class="w-full bg-slate-800 p-2 rounded mb-4"></textarea>
 
 
 
-  <button id="submitBtn"
-
-    class="bg-[#0f766e] px-4 py-2 rounded">
+  <button id="submitBtn" class="bg-[#0f766e] px-4 py-2 rounded">
 
     Generate
 
@@ -39,7 +35,7 @@
   <!-- Pricing Section -->
   <div id="pricing" class="mt-12 border-t border-slate-700 pt-8">
     <h2 class="text-2xl font-bold mb-6 text-center">Pricing Plans</h2>
-    
+
     <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
       <!-- Monthly Plan -->
       <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 flex flex-col">
@@ -50,14 +46,16 @@
           <li>✓ Priority Support</li>
           <li>✓ Cancel Anytime</li>
         </ul>
-        <button onclick="subscribe('monthly')" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
+        <button onclick="subscribe('monthly')"
+          class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
           Subscribe Monthly
         </button>
       </div>
 
       <!-- Yearly Plan -->
       <div class="bg-slate-800 p-6 rounded-lg border-2 border-[#0f766e] relative flex flex-col">
-        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#0f766e] text-xs px-3 py-1 rounded-full font-bold">
+        <div
+          class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#0f766e] text-xs px-3 py-1 rounded-full font-bold">
           SAVE 33%
         </div>
         <h3 class="text-xl font-bold mb-2">Yearly</h3>
@@ -67,7 +65,8 @@
           <li>✓ 4 Months Free</li>
           <li>✓ Best Value</li>
         </ul>
-        <button onclick="subscribe('yearly')" class="w-full bg-[#0f766e] hover:bg-[#0d655d] text-white font-bold py-3 rounded transition shadow-lg shadow-teal-900/50">
+        <button onclick="subscribe('yearly')"
+          class="w-full bg-[#0f766e] hover:bg-[#0d655d] text-white font-bold py-3 rounded transition shadow-lg shadow-teal-900/50">
           Subscribe Yearly
         </button>
       </div>
@@ -76,78 +75,79 @@
 
   <pre id="output" class="mt-4 bg-slate-800 p-4 rounded hidden"></pre>
 
-<script>
-// Stripe Public Key (Placeholder - Replace with your actual key)
-const STRIPE_PUBLIC_KEY = "pk_test_YOUR_KEY_HERE";
+  <script>
+    // Stripe 公钥 (占位符 - 请替换为您的实际密钥)
+    const STRIPE_PUBLIC_KEY = "pk_test_YOUR_KEY_HERE";
 
-document.getElementById("submitBtn").onclick = async () => {
-  const output = document.getElementById("output");
-  const input = document.getElementById("userInput").value.trim();
-  
-  if (!input) return alert("Enter input");
-  
-  output.classList.remove("hidden");
-  output.textContent = "Thinking...";
+    document.getElementById("submitBtn").onclick = async () => {
+      const output = document.getElementById("output");
+      const input = document.getElementById("userInput").value.trim();
 
-  try {
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ input })
-    });
+      if (!input) return alert("Enter input");
 
-    const data = await res.json();
-    
-    if (data.error === "free_limit_reached") {
-      output.innerHTML = `
+      output.classList.remove("hidden");
+      output.textContent = "Thinking...";
+
+      try {
+        const res = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ input })
+        });
+
+        const data = await res.json();
+
+        if (data.error === "free_limit_reached") {
+          output.innerHTML = `
         <div class="text-yellow-400 font-bold mb-2">Free Limit Reached</div>
         <p class="mb-4">You have used your free generations for today.</p>
         <a href="#pricing" class="inline-block bg-[#0f766e] px-4 py-2 rounded text-white text-sm">Upgrade to Pro</a>
       `;
-      return;
+          return;
+        }
+
+        output.textContent = data.output || "(no output)";
+      } catch (e) {
+        output.textContent = "Error: " + e.message;
+      }
+    };
+
+    async function subscribe(plan) {
+      try {
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = "Processing...";
+        btn.disabled = true;
+
+        const res = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan })
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+          alert("Error: " + data.error);
+          btn.innerText = originalText;
+          btn.disabled = false;
+          return;
+        }
+
+        if (data.url) {
+          window.location.href = data.url;
+        }
+      } catch (e) {
+        alert("Connection Error: " + e.message);
+        const btn = event.target; // Re-select might be needed if context lost, but simple here
+        if (btn) {
+          btn.innerText = "Try Again";
+          btn.disabled = false;
+        }
+      }
     }
-
-    output.textContent = data.output || "(no output)";
-  } catch (e) {
-    output.textContent = "Error: " + e.message;
-  }
-};
-
-async function subscribe(plan) {
-  try {
-    const btn = event.target;
-    const originalText = btn.innerText;
-    btn.innerText = "Processing...";
-    btn.disabled = true;
-
-    const res = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan })
-    });
-
-    const data = await res.json();
-
-    if (data.error) {
-      alert("Error: " + data.error);
-      btn.innerText = originalText;
-      btn.disabled = false;
-      return;
-    }
-
-    if (data.url) {
-      window.location.href = data.url;
-    }
-  } catch (e) {
-    alert("Connection Error: " + e.message);
-    const btn = event.target; // Re-select might be needed if context lost, but simple here
-    if(btn) {
-        btn.innerText = "Try Again";
-        btn.disabled = false;
-    }
-  }
-}
-</script>
+  </script>
 
 </body>
+
 </html>
