@@ -1,0 +1,15 @@
+{
+  "styles": {
+    "professional": "sleek, teal gradient, corporate style, writing pen theme",
+    "fantasy": "mystic tarot symbols, gold-purple gradient, magical aura",
+    "neon": "cyberpunk neon glow, futuristic",
+    "minimal": "simple geometric shapes, flat white and gray",
+    "cute": "soft pastel colors, kawaii style",
+    "abstract": "AI-themed abstract neural shapes",
+    "gradient": "smooth SaaS gradient backgrounds",
+    "tech": "circuit, AI, code symbols",
+    "magic": "divination, stars, moon, spiritual elements",
+    "elegant": "premium gold, black, luxury branding"
+  }
+}
+

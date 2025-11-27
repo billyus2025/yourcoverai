@@ -1,0 +1,6 @@
+A clean, modern iOS-style app icon for "{{name}}".
+Design style: {{style}}.
+Key visual element: a simple emblem representing its function.
+Minimal, flat, smooth gradients, high contrast, rounded corners.
+No text. 1024x1024 PNG, centered composition, crisp details.
+
