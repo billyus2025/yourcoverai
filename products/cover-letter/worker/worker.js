@@ -35,7 +35,7 @@ async function checkLicense(env, licenseKey) {
     }
 
     const license = JSON.parse(licenseData);
-    
+
     // Check if license is valid
     if (!license.plan || !['monthly', 'yearly'].includes(license.plan)) {
       return { valid: false, reason: 'invalid_plan' };
@@ -107,7 +107,7 @@ async function handleGenerate(request, env) {
         error: "Missing input field"
       }), {
         status: 400,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -116,7 +116,7 @@ async function handleGenerate(request, env) {
         error: "OPENAI_API_KEY not configured"
       }), {
         status: 500,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -149,7 +149,7 @@ async function handleGenerate(request, env) {
           upgrade_url: "/#pricing"
         }), {
           status: 200,
-          headers: {"Content-Type":"application/json"}
+          headers: { "Content-Type": "application/json" }
         });
       }
       canProceed = true;
@@ -185,7 +185,7 @@ Requirements:
     const out = await callOpenAI(env.OPENAI_API_KEY, messages, PRODUCT_CONFIG.model);
 
     return new Response(JSON.stringify({ output: out }), {
-      headers: {"Content-Type":"application/json"}
+      headers: { "Content-Type": "application/json" }
     });
 
   } catch (error) {
@@ -194,7 +194,7 @@ Requirements:
       error: error.message || "Internal server error"
     }), {
       status: 500,
-      headers: {"Content-Type":"application/json"}
+      headers: { "Content-Type": "application/json" }
     });
   }
 }
@@ -221,7 +221,7 @@ async function handleCheckout(request, env) {
         error: "Invalid plan. Must be 'monthly' or 'yearly'"
       }), {
         status: 400,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -230,20 +230,20 @@ async function handleCheckout(request, env) {
         error: "STRIPE_SECRET_KEY not configured"
       }), {
         status: 500,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
-    const priceId = plan === "yearly" 
-      ? env.STRIPE_PRICE_YEARLY 
-      : env.STRIPE_PRICE_MONTHLY;
+    const priceId = plan === "yearly"
+      ? env.STRIPE_PRICE_ID_YEARLY
+      : env.STRIPE_PRICE_ID_MONTHLY;
 
     if (!priceId) {
       return new Response(JSON.stringify({
-        error: `STRIPE_PRICE_${plan.toUpperCase()} not configured`
+        error: `STRIPE_PRICE_ID_${plan.toUpperCase()} not configured`
       }), {
         status: 500,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -275,7 +275,7 @@ async function handleCheckout(request, env) {
       url: session.url
     }), {
       status: 200,
-      headers: {"Content-Type":"application/json"}
+      headers: { "Content-Type": "application/json" }
     });
 
   } catch (error) {
@@ -286,8 +286,8 @@ async function handleCheckout(request, env) {
       stack: error.stack,
       env: {
         hasSecretKey: !!env.STRIPE_SECRET_KEY,
-        hasMonthlyPrice: !!env.STRIPE_PRICE_MONTHLY,
-        hasYearlyPrice: !!env.STRIPE_PRICE_YEARLY,
+        hasMonthlyPrice: !!env.STRIPE_PRICE_ID_MONTHLY,
+        hasYearlyPrice: !!env.STRIPE_PRICE_ID_YEARLY,
         hasBaseUrl: !!env.APP_BASE_URL
       }
     });
@@ -296,7 +296,7 @@ async function handleCheckout(request, env) {
       details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     }), {
       status: 500,
-      headers: {"Content-Type":"application/json"}
+      headers: { "Content-Type": "application/json" }
     });
   }
 }
@@ -312,7 +312,7 @@ async function handleCheckoutSuccess(request, env) {
         error: "Missing session_id parameter"
       }), {
         status: 400,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -321,7 +321,7 @@ async function handleCheckoutSuccess(request, env) {
         error: "STRIPE_SECRET_KEY not configured"
       }), {
         status: 500,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -347,7 +347,7 @@ async function handleCheckoutSuccess(request, env) {
         status: session.payment_status
       }), {
         status: 400,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -356,7 +356,7 @@ async function handleCheckoutSuccess(request, env) {
     let plan = 'monthly';
     if (subscription && subscription.items && subscription.items.data && subscription.items.data[0]) {
       const priceId = subscription.items.data[0].price.id;
-      if (priceId === env.STRIPE_PRICE_YEARLY) {
+      if (priceId === env.STRIPE_PRICE_ID_YEARLY) {
         plan = 'yearly';
       }
     }
@@ -378,7 +378,7 @@ async function handleCheckoutSuccess(request, env) {
       plan: plan
     }), {
       status: 200,
-      headers: {"Content-Type":"application/json"}
+      headers: { "Content-Type": "application/json" }
     });
 
   } catch (error) {
@@ -387,7 +387,7 @@ async function handleCheckoutSuccess(request, env) {
       error: error.message || "Internal server error"
     }), {
       status: 500,
-      headers: {"Content-Type":"application/json"}
+      headers: { "Content-Type": "application/json" }
     });
   }
 }
@@ -407,7 +407,7 @@ export default {
           message: "API online. Use POST to send input."
         }), {
           status: 200,
-          headers: {"Content-Type":"application/json"}
+          headers: { "Content-Type": "application/json" }
         });
       }
       if (method === "POST") {
@@ -420,7 +420,12 @@ export default {
       return handleCheckout(request, env);
     }
 
-    // Route: /create-checkout-session
+    // Route: /api/create-checkout-session (New standard route)
+    if (pathname === "/api/create-checkout-session" && method === "POST") {
+      return handleCheckout(request, env);
+    }
+
+    // Route: /create-checkout-session (Legacy support)
     if (pathname === "/create-checkout-session" && method === "POST") {
       return handleCheckout(request, env);
     }
@@ -443,7 +448,7 @@ export default {
         message: "Usage reported"
       }), {
         status: 200,
-        headers: {"Content-Type":"application/json"}
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -465,7 +470,7 @@ export default {
       message: `Route ${pathname} with method ${method} not found`
     }), {
       status: 404,
-      headers: {"Content-Type":"application/json"}
+      headers: { "Content-Type": "application/json" }
     });
   }
 };
