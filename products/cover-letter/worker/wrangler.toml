@@ -13,3 +13,8 @@ id = "99176a33bd1f4293be4380fe7c425ac7"
 [[kv_namespaces]]
 binding = "FREE_USAGE"
 id = "737d6c4e60e14a19bd16f7fab83b68e4"
+
+[vars]
+STRIPE_PRICE_ID_MONTHLY = "price_1SY6ni2Ws8I86hFpfJMuKfH5"
+STRIPE_PRICE_ID_YEARLY = "price_1SY6u82Ws8I86hFpXgekLr6t"
+APP_BASE_URL = "https://yourcoverai.com"
