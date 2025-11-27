@@ -202,6 +202,18 @@ Requirements:
 // Handle /api/checkout
 async function handleCheckout(request, env) {
   try {
+    // Handle OPTIONS for CORS preflight
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type"
+        }
+      });
+    }
+
     const { plan } = await request.json();
 
     if (!plan || !['monthly', 'yearly'].includes(plan)) {
@@ -435,6 +447,25 @@ export default {
       });
     }
 
-    return new Response("Not Found", { status: 404 });
+    // Handle OPTIONS requests for CORS
+    if (method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, x-license-key"
+        }
+      });
+    }
+
+    // Return 404 for unmatched routes (not 405)
+    return new Response(JSON.stringify({
+      error: "Not Found",
+      message: `Route ${pathname} with method ${method} not found`
+    }), {
+      status: 404,
+      headers: {"Content-Type":"application/json"}
+    });
   }
 };

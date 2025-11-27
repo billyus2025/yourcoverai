@@ -278,6 +278,13 @@
   </div>
 
   <script>
+    // API Configuration
+    // If frontend is deployed on GitHub Pages, use Worker URL directly
+    // If frontend is served from Worker, use relative paths
+    const API_BASE_URL = window.location.hostname === 'yourcoverai.com' || window.location.hostname.includes('github.io')
+      ? 'https://yourcoverai.billyus2025.workers.dev'
+      : '';
+
     // Language configuration
     const SUPPORTED_LANGUAGES = {
       en: 'English',
@@ -469,7 +476,7 @@
 
         let res;
         try {
-          res = await fetch('/api/generate', {
+          res = await fetch(`${API_BASE_URL}/api/generate`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ 
@@ -625,7 +632,7 @@
       button.textContent = 'Loading...';
 
       try {
-        const response = await fetch('/create-checkout-session', {
+        const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

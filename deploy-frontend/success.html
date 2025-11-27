@@ -48,6 +48,11 @@
   </div>
 
   <script>
+    // API Configuration
+    const API_BASE_URL = window.location.hostname === 'yourcoverai.com' || window.location.hostname.includes('github.io')
+      ? 'https://yourcoverai.billyus2025.workers.dev'
+      : '';
+
     async function activateLicense() {
       const urlParams = new URLSearchParams(window.location.search);
       const sessionId = urlParams.get('session_id');
@@ -60,7 +65,7 @@
       }
 
       try {
-        const response = await fetch(`/checkout-success?session_id=${sessionId}`);
+        const response = await fetch(`${API_BASE_URL}/checkout-success?session_id=${sessionId}`);
         const data = await response.json();
 
         if (data.error || data.status === 'error') {
