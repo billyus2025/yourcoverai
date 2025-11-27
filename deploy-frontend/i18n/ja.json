@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "AI搭載カバーレター生成器",
+  "job_description_label": "求人内容",
+  "job_description_placeholder": "求人内容を貼り付けるか、ここに役割を説明してください...",
+  "generate_btn": "カバーレターを生成",
+  "loading_message": "AIがカバーレターを作成しています...",
+  "output_label": "生成されたカバーレター",
+  "copy_btn": "コピー",
+  "copied_message": "コピーしました！",
+  "error_message": "エラーが発生しました。もう一度お試しください。",
+  "language_label": "言語"
+}
+

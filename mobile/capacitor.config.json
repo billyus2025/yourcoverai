@@ -1,0 +1,10 @@
+{
+  "appId": "com.yourcoverai.app",
+  "appName": "YourCoverAI",
+  "webDir": ".",
+  "server": {
+    "url": "https://yourcoverai.billyus2025.workers.dev",
+    "cleartext": true
+  }
+}
+

@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "Generador de Cartas de Presentación con IA",
+  "job_description_label": "Descripción del Trabajo",
+  "job_description_placeholder": "Pega la descripción del trabajo o describe el puesto aquí...",
+  "generate_btn": "Generar Carta de Presentación",
+  "loading_message": "La IA está escribiendo tu carta de presentación...",
+  "output_label": "Carta de Presentación Generada",
+  "copy_btn": "Copiar",
+  "copied_message": "¡Copiado!",
+  "error_message": "Algo salió mal. Por favor, inténtalo de nuevo.",
+  "language_label": "Idioma"
+}
+

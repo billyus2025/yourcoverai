@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "AI 기반 자기소개서 생성기",
+  "job_description_label": "채용 공고",
+  "job_description_placeholder": "채용 공고를 붙여넣거나 여기에 역할을 설명하세요...",
+  "generate_btn": "자기소개서 생성",
+  "loading_message": "AI가 자기소개서를 작성 중입니다...",
+  "output_label": "생성된 자기소개서",
+  "copy_btn": "복사",
+  "copied_message": "복사되었습니다!",
+  "error_message": "문제가 발생했습니다. 다시 시도해 주세요.",
+  "language_label": "언어"
+}
+

@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "AI-powered Cover Letter Generator",
+  "job_description_label": "Job Description",
+  "job_description_placeholder": "Paste job description or describe the role here...",
+  "generate_btn": "Generate Cover Letter",
+  "loading_message": "AI is writing your cover letter...",
+  "output_label": "Generated Cover Letter",
+  "copy_btn": "Copy",
+  "copied_message": "Copied!",
+  "error_message": "Something went wrong. Please try again.",
+  "language_label": "Language"
+}
+

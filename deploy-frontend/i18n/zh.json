@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "AI 驱动的求职信生成器",
+  "job_description_label": "职位描述",
+  "job_description_placeholder": "粘贴职位描述，或用中文/英文描述你要申请的岗位…",
+  "generate_btn": "生成求职信",
+  "loading_message": "AI 正在帮你写求职信……",
+  "output_label": "生成的求职信",
+  "copy_btn": "复制",
+  "copied_message": "已复制！",
+  "error_message": "出错了，请重试。",
+  "language_label": "语言"
+}
+

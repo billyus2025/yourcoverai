@@ -98,7 +98,7 @@ export default {
 
       try {
 
-        const { input } = await request.json();
+        const { input, target_language = "en" } = await request.json();
 
 
 
@@ -138,9 +138,39 @@ export default {
 
 
 
+        // Language name mapping
+        const languageNames = {
+          en: "English",
+          zh: "Chinese",
+          es: "Spanish",
+          fr: "French",
+          de: "German",
+          pt: "Portuguese",
+          ja: "Japanese",
+          ko: "Korean",
+          ar: "Arabic",
+          hi: "Hindi"
+        };
+
+        const targetLangName = languageNames[target_language] || languageNames["en"];
+
+        // Build system prompt with target language
+        const systemPrompt = `You are a top HR specialist and a top-tier career coach. Your job is to generate professional, compelling, personalized cover letters that match the user's background and the job description.
+
+IMPORTANT: Generate the cover letter in ${targetLangName}. The tone, style, and format should match professional standards and cultural conventions of ${targetLangName}-speaking regions.
+
+Requirements:
+- Use a confident, human-sounding tone appropriate for ${targetLangName} business communication
+- Personalize the letter using the user's experience and background
+- Highlight achievements and metrics when available
+- Format cleanly: maximum 4 paragraphs
+- Avoid generic filler content
+- Include a strong, professional closing statement
+- Ensure the cover letter is written entirely in ${targetLangName} with proper grammar and cultural appropriateness`;
+
         const messages = [
 
-          { role: "system", content: PRODUCT_CONFIG.systemPrompt },
+          { role: "system", content: systemPrompt },
 
           { role: "user", content: input }
 
