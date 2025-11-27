@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "مولد خطاب التقديم بالذكاء الاصطناعي",
+  "job_description_label": "وصف الوظيفة",
+  "job_description_placeholder": "الصق وصف الوظيفة أو اشرح الدور هنا...",
+  "generate_btn": "إنشاء خطاب التقديم",
+  "loading_message": "الذكاء الاصطناعي يكتب خطاب التقديم الخاص بك...",
+  "output_label": "خطاب التقديم المُنشأ",
+  "copy_btn": "نسخ",
+  "copied_message": "تم النسخ!",
+  "error_message": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+  "language_label": "اللغة"
+}
+

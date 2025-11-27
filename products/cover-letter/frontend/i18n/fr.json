@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "Générateur de Lettres de Motivation par IA",
+  "job_description_label": "Description du Poste",
+  "job_description_placeholder": "Collez la description du poste ou décrivez le rôle ici...",
+  "generate_btn": "Générer la Lettre de Motivation",
+  "loading_message": "L'IA rédige votre lettre de motivation...",
+  "output_label": "Lettre de Motivation Générée",
+  "copy_btn": "Copier",
+  "copied_message": "Copié !",
+  "error_message": "Quelque chose s'est mal passé. Veuillez réessayer.",
+  "language_label": "Langue"
+}
+

@@ -140,7 +140,7 @@
     <div class="modal-content animate-fade-in">
       <div class="p-6">
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-xl font-bold text-white">Login / Sign Up</h3>
+          <h3 class="text-xl font-bold text-white" data-i18n="login_modal_title">Login / Sign Up</h3>
           <button id="closeModal" class="text-slate-400 hover:text-white">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -148,11 +148,13 @@
           </button>
         </div>
         <div id="loginStep1">
-          <p class="text-slate-400 text-sm mb-4">Enter your email to receive a magic login link.</p>
+          <p class="text-slate-400 text-sm mb-4" data-i18n="login_instruction">Enter your email to receive a magic login
+            link.</p>
           <input type="email" id="emailInput" placeholder="name@example.com"
             class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white mb-4 focus:ring-2 focus:ring-brand-500 outline-none">
           <button id="sendLinkBtn"
-            class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-lg transition-colors">
+            class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-lg transition-colors"
+            data-i18n="send_link_btn">
             Send Magic Link
           </button>
         </div>
@@ -164,9 +166,9 @@
               </path>
             </svg>
           </div>
-          <h4 class="text-lg font-semibold text-white mb-2">Check your email</h4>
-          <p class="text-slate-400 text-sm mb-6">We sent a magic link to <span id="sentEmail"
-              class="text-white font-medium"></span></p>
+          <h4 class="text-lg font-semibold text-white mb-2" data-i18n="check_email_title">Check your email</h4>
+          <p class="text-slate-400 text-sm mb-6"><span data-i18n="check_email_text">We sent a magic link to</span> <span
+              id="sentEmail" class="text-white font-medium"></span></p>
           <p class="text-xs text-slate-500 mt-4">For testing: Check console for link</p>
         </div>
       </div>
@@ -199,19 +201,21 @@
         </div>
         <div class="flex items-center gap-4">
           <a href="#pricing"
-            class="hidden sm:block text-sm font-medium text-slate-300 hover:text-white transition-colors">Pricing</a>
+            class="hidden sm:block text-sm font-medium text-slate-300 hover:text-white transition-colors"
+            data-i18n="pricing_title">Pricing</a>
 
           <!-- Auth Buttons -->
           <div id="authSection">
-            <button id="loginBtn"
-              class="text-sm font-medium text-slate-300 hover:text-white transition-colors mr-4">Login</button>
+            <button id="loginBtn" class="text-sm font-medium text-slate-300 hover:text-white transition-colors mr-4"
+              data-i18n="login_btn">Login</button>
           </div>
           <div id="userSection" class="hidden flex items-center gap-3">
             <div class="text-right hidden md:block">
               <div id="userEmail" class="text-xs text-slate-300 font-medium"></div>
               <div id="userPlan" class="text-[10px] text-brand-400 uppercase font-bold tracking-wider">Free Plan</div>
             </div>
-            <button id="logoutBtn" class="text-xs text-slate-500 hover:text-white">Logout</button>
+            <button id="logoutBtn" class="text-xs text-slate-500 hover:text-white"
+              data-i18n="logout_btn">Logout</button>
           </div>
 
           <!-- Language Dropdown -->
@@ -268,13 +272,13 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
         </span>
-        AI-Powered Career Assistant
+        <span data-i18n="hero_badge">AI-Powered Career Assistant</span>
       </div>
       <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-        Craft the Perfect <br class="hidden md:block" />
-        <span class="gradient-text">Cover Letter in Seconds</span>
+        <span data-i18n="hero_title_1">Craft the Perfect</span> <br class="hidden md:block" />
+        <span class="gradient-text" data-i18n="hero_title_2">Cover Letter in Seconds</span>
       </h1>
-      <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-8">
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-8" data-i18n="hero_subtitle">
         Stop staring at a blank page. Let our advanced AI analyze your job description and write a professional,
         personalized cover letter that gets you hired.
       </p>
@@ -294,7 +298,7 @@
                   d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                 </path>
               </svg>
-              Job Description
+              <span data-i18n="input_label">Job Description</span>
             </label>
             <div id="usageInfo"
               class="text-xs font-medium px-2 py-1 rounded bg-white/5 text-slate-400 border border-white/5">
@@ -304,7 +308,8 @@
           </div>
           <textarea id="userInput"
             class="w-full h-80 bg-slate-800/50 border border-slate-700 rounded-lg p-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all resize-none text-sm leading-relaxed custom-scrollbar"
-            placeholder="Paste the job description here... e.g. 'We are looking for a Senior Product Designer with 5 years of experience...'"></textarea>
+            placeholder="Paste the job description here... e.g. 'We are looking for a Senior Product Designer with 5 years of experience...'"
+            data-i18n-placeholder="input_placeholder"></textarea>
           <div class="mt-6">
             <button id="submitBtn"
               class="group w-full relative overflow-hidden bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-semibold py-3.5 px-6 rounded-lg transition-all duration-300 shadow-lg shadow-brand-500/25 disabled:opacity-70 disabled:cursor-not-allowed">
@@ -313,7 +318,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
                   </path>
                 </svg>
-                Generate Cover Letter
+                <span data-i18n="generate_btn">Generate Cover Letter</span>
               </span>
               <div
                 class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700">
@@ -334,7 +339,7 @@
                   d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                 </path>
               </svg>
-              Result
+              <span data-i18n="result_label">Result</span>
             </label>
             <button id="copyBtn"
               class="hidden text-xs font-medium px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors border border-white/5 flex items-center gap-1.5">
@@ -343,7 +348,7 @@
                   d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
                 </path>
               </svg>
-              Copy Text
+              <span data-i18n="copy_btn">Copy Text</span>
             </button>
           </div>
 
@@ -357,9 +362,9 @@
                 </path>
               </svg>
             </div>
-            <h3 class="text-slate-300 font-medium mb-1">Ready to Generate</h3>
-            <p class="text-slate-500 text-sm max-w-xs">Paste your job description on the left and hit generate to see
-              the magic happen.</p>
+            <h3 class="text-slate-300 font-medium mb-1" data-i18n="ready_title">Ready to Generate</h3>
+            <p class="text-slate-500 text-sm max-w-xs" data-i18n="ready_text">Paste your job description on the left and
+              hit generate to see the magic happen.</p>
           </div>
 
           <!-- Loading State -->
@@ -370,7 +375,8 @@
                 class="absolute top-0 left-0 w-full h-full border-4 border-brand-500 rounded-full border-t-transparent animate-spin">
               </div>
             </div>
-            <p class="text-slate-300 font-medium animate-pulse">Analyzing Job Requirements...</p>
+            <p class="text-slate-300 font-medium animate-pulse" data-i18n="analyzing_text">Analyzing Job
+              Requirements...</p>
           </div>
 
           <!-- Output Text -->
@@ -383,14 +389,14 @@
     <!-- Pricing Section -->
     <div id="pricing" class="mt-32 mb-16">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-white mb-4">Simple, Transparent Pricing</h2>
-        <p class="text-slate-400">Unlock unlimited power. Cancel anytime.</p>
+        <h2 class="text-3xl font-bold text-white mb-4" data-i18n="pricing_title">Simple, Transparent Pricing</h2>
+        <p class="text-slate-400" data-i18n="pricing_subtitle">Unlock unlimited power. Cancel anytime.</p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         <!-- Monthly -->
         <div class="glass rounded-2xl p-8 hover:bg-white/5 transition-all duration-300 border border-white/5">
-          <h3 class="text-xl font-semibold text-white mb-2">Pro Monthly</h3>
+          <h3 class="text-xl font-semibold text-white mb-2" data-i18n="monthly_plan">Pro Monthly</h3>
           <div class="flex items-baseline gap-1 mb-6">
             <span class="text-4xl font-bold text-white">$9.9</span>
             <span class="text-slate-400">/mo</span>
@@ -400,23 +406,24 @@
               <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              Unlimited generations
+              <span data-i18n="feature_unlimited">Unlimited generations</span>
             </li>
             <li class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              All 10 languages
+              <span data-i18n="feature_languages">All 10 languages</span>
             </li>
             <li class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              Priority support
+              <span data-i18n="feature_support">Priority support</span>
             </li>
           </ul>
           <button id="subscribeMonthly"
-            class="w-full py-3 rounded-lg border border-slate-600 text-white font-medium hover:bg-white hover:text-slate-900 transition-all duration-300">
+            class="w-full py-3 rounded-lg border border-slate-600 text-white font-medium hover:bg-white hover:text-slate-900 transition-all duration-300"
+            data-i18n="subscribe_monthly">
             Subscribe Monthly
           </button>
         </div>
@@ -424,39 +431,41 @@
         <!-- Yearly -->
         <div class="glass rounded-2xl p-1 relative">
           <div
-            class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-brand-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+            class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-brand-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg"
+            data-i18n="best_value">
             BEST VALUE
           </div>
           <div class="bg-slate-900/80 rounded-xl p-7 h-full backdrop-blur-sm">
-            <h3 class="text-xl font-semibold text-white mb-2">Pro Yearly</h3>
+            <h3 class="text-xl font-semibold text-white mb-2" data-i18n="yearly_plan">Pro Yearly</h3>
             <div class="flex items-baseline gap-1 mb-2">
               <span class="text-4xl font-bold text-white">$79</span>
               <span class="text-slate-400">/yr</span>
             </div>
-            <p class="text-xs text-brand-400 font-medium mb-6">Save 33% ($39.80)</p>
+            <p class="text-xs text-brand-400 font-medium mb-6" data-i18n="save_text">Save 33% ($39.80)</p>
 
             <ul class="space-y-4 mb-8 text-slate-300 text-sm">
               <li class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Unlimited generations
+                <span data-i18n="feature_unlimited">Unlimited generations</span>
               </li>
               <li class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                All 10 languages
+                <span data-i18n="feature_languages">All 10 languages</span>
               </li>
               <li class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Priority support
+                <span data-i18n="feature_support">Priority support</span>
               </li>
             </ul>
             <button id="subscribeYearly"
-              class="w-full py-3 rounded-lg bg-white text-slate-900 font-bold hover:bg-brand-50 transition-all duration-300 shadow-lg shadow-brand-500/20">
+              class="w-full py-3 rounded-lg bg-white text-slate-900 font-bold hover:bg-brand-50 transition-all duration-300 shadow-lg shadow-brand-500/20"
+              data-i18n="subscribe_yearly">
               Subscribe Yearly
             </button>
           </div>
@@ -550,16 +559,21 @@
         return;
       }
 
-      // Update basic text elements if they exist in translations
-      // Note: Since we changed the UI structure, some IDs might need checking or we rely on defaults
-      // For this redesign, we keep it simple and assume English default for static text unless strict i18n is required immediately.
-      // But we will update the dynamic parts.
+      // Update elements with data-i18n attribute
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[key]) {
+          el.textContent = translations[key];
+        }
+      });
 
-      if (translations.generate_btn) {
-        // Only update text part, keep icon
-        const icon = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`;
-        btnText.innerHTML = `${icon} ${translations.generate_btn}`;
-      }
+      // Update placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[key]) {
+          el.placeholder = translations[key];
+        }
+      });
 
       // Update language button
       langBtnText.textContent = currentLang.toUpperCase();

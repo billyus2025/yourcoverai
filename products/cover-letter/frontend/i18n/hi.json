@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "AI-संचालित कवर लेटर जेनरेटर",
+  "job_description_label": "नौकरी का विवरण",
+  "job_description_placeholder": "नौकरी का विवरण चिपकाएं या यहां भूमिका का वर्णन करें...",
+  "generate_btn": "कवर लेटर जेनरेट करें",
+  "loading_message": "AI आपका कवर लेटर लिख रहा है...",
+  "output_label": "जेनरेट किया गया कवर लेटर",
+  "copy_btn": "कॉपी करें",
+  "copied_message": "कॉपी हो गया!",
+  "error_message": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+  "language_label": "भाषा"
+}
+

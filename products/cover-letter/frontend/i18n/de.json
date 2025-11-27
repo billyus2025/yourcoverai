@@ -1,0 +1,14 @@
+{
+  "title": "YourCoverAI",
+  "subtitle": "KI-gestützter Bewerbungsschreiben-Generator",
+  "job_description_label": "Stellenbeschreibung",
+  "job_description_placeholder": "Fügen Sie die Stellenbeschreibung ein oder beschreiben Sie die Rolle hier...",
+  "generate_btn": "Bewerbungsschreiben Generieren",
+  "loading_message": "Die KI schreibt Ihr Bewerbungsschreiben...",
+  "output_label": "Generiertes Bewerbungsschreiben",
+  "copy_btn": "Kopieren",
+  "copied_message": "Kopiert!",
+  "error_message": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.",
+  "language_label": "Sprache"
+}
+
