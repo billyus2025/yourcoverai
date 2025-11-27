@@ -4,6 +4,7 @@ import { checkLicense, checkFreeUsage, createLicense } from "../../../shared/lic
 import { createCheckoutSession, verifyStripeSession } from "../../../shared/stripe.js";
 import { callOpenAI } from "../../../shared/openai.js";
 import { jsonResponse, errorResponse, handleCors, hashString } from "../../../shared/utils.js";
+import { sendMagicLink, verifyMagicLink, verifySession, updateUserPlan } from "../../../shared/auth.js";
 
 // Handle /api/generate
 async function handleGenerate(request, env) {
@@ -13,19 +14,40 @@ async function handleGenerate(request, env) {
     if (!input) return errorResponse("Missing input field", 400);
     if (!env.OPENAI_API_KEY) return errorResponse("OPENAI_API_KEY not configured", 500);
 
-    // 1. License / Free Usage Check
+    // 1. Auth / License / Free Usage Check
+    const authHeader = request.headers.get("Authorization");
     const licenseKey = request.headers.get("x-license-key");
     let canProceed = false;
+    let userPlan = 'free';
 
-    if (licenseKey) {
-      const check = await checkLicense(env, licenseKey, config.slug);
-      if (check.valid) {
-        canProceed = true;
-      } else {
-        console.log('Invalid license, falling back to free tier');
+    // A. Check Session (Login)
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      const token = authHeader.split(" ")[1];
+      const session = await verifySession(env, config.slug, token);
+      if (session.valid) {
+        // Logged in user
+        if (session.user.plan === 'monthly' || session.user.plan === 'yearly') {
+          canProceed = true; // Paid user = unlimited
+          userPlan = session.user.plan;
+        } else {
+          // Free user logged in - still subject to limits? 
+          // For now, let's say logged in free users still get IP limits or maybe slightly higher?
+          // Let's stick to IP limits for free users for simplicity, or we could track usage by email.
+          // To keep it simple and robust: Fallback to IP check if plan is free.
+        }
       }
     }
 
+    // B. Check License Key (Legacy / Direct)
+    if (!canProceed && licenseKey) {
+      const check = await checkLicense(env, licenseKey, config.slug);
+      if (check.valid) {
+        canProceed = true;
+        userPlan = check.license.plan;
+      }
+    }
+
+    // C. Free Tier Fallback
     if (!canProceed) {
       const ip = request.headers.get("CF-Connecting-IP") || "unknown";
       const ua = request.headers.get("User-Agent") || "unknown";
@@ -37,7 +59,7 @@ async function handleGenerate(request, env) {
           error: "free_limit_reached",
           message: "Free limit reached. Please upgrade to continue.",
           upgrade_url: "/#pricing"
-        }, 200); // Return 200 to handle gracefully in frontend
+        }, 200);
       }
     }
 
@@ -138,6 +160,13 @@ async function handleCheckoutSuccess(request, env) {
     // Create License
     const licenseKey = await createLicense(env, config.slug, plan);
 
+    // If we have customer email from Stripe, link it to user account
+    // Note: Stripe session object has customer_details.email
+    if (session.customer_details && session.customer_details.email) {
+      const email = session.customer_details.email;
+      await updateUserPlan(env, config.slug, email, plan, licenseKey);
+    }
+
     return jsonResponse({
       status: "ok",
       license: licenseKey,
@@ -190,6 +219,34 @@ export default {
         } catch (e) {
           return errorResponse(e.message, 500);
         }
+      }
+
+      // 路由: /api/auth/send-link
+      if (pathname === "/api/auth/send-link" && method === "POST") {
+        const { email } = await request.json();
+        if (!email) return errorResponse("Missing email", 400);
+        const baseUrl = env.APP_BASE_URL || "https://yourcoverai.com";
+        const link = await sendMagicLink(env, config.slug, email, baseUrl);
+        return jsonResponse({ status: "ok", message: "Magic link sent", link }); // Returning link for testing
+      }
+
+      // 路由: /api/auth/verify-link
+      if (pathname === "/api/auth/verify-link" && method === "POST") {
+        const { token } = await request.json();
+        if (!token) return errorResponse("Missing token", 400);
+        const result = await verifyMagicLink(env, config.slug, token);
+        if (!result.valid) return errorResponse(result.error, 401);
+        return jsonResponse({ status: "ok", sessionToken: result.sessionToken, user: result.user });
+      }
+
+      // 路由: /api/auth/me
+      if (pathname === "/api/auth/me" && method === "GET") {
+        const authHeader = request.headers.get("Authorization");
+        if (!authHeader || !authHeader.startsWith("Bearer ")) return errorResponse("Unauthorized", 401);
+        const token = authHeader.split(" ")[1];
+        const session = await verifySession(env, config.slug, token);
+        if (!session.valid) return errorResponse("Invalid session", 401);
+        return jsonResponse({ status: "ok", user: session.user });
       }
 
       // 404
