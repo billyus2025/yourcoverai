@@ -79,6 +79,10 @@
     // Stripe 公钥 (占位符 - 请替换为您的实际密钥)
     const STRIPE_PUBLIC_KEY = "pk_test_YOUR_KEY_HERE";
 
+    // API Base URL (Fix for "Failed to fetch" error)
+    // 如果您的前端和后端不在同一个域名下，请使用后端 Worker 的完整 URL
+    const API_BASE_URL = "https://yourcoverai.billyus2025.workers.dev";
+
     document.getElementById("submitBtn").onclick = async () => {
       const output = document.getElementById("output");
       const input = document.getElementById("userInput").value.trim();
@@ -89,7 +93,7 @@
       output.textContent = "Thinking...";
 
       try {
-        const res = await fetch("/api/generate", {
+        const res = await fetch(`${API_BASE_URL}/api/generate`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ input })
@@ -119,7 +123,7 @@
         btn.innerText = "Processing...";
         btn.disabled = true;
 
-        const res = await fetch('/api/create-checkout-session', {
+        const res = await fetch(`${API_BASE_URL}/api/create-checkout-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ plan })
