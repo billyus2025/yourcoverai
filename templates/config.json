@@ -1,0 +1,9 @@
+{
+
+  "defaultModel": "gpt-4.1-mini",
+
+  "defaultThemeColor": "#0f766e",
+
+  "defaultSystemPrompt": "You are a helpful AI assistant."
+
+}

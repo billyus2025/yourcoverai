@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <title>__PRODUCT_NAME__</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="p-6 text-white bg-slate-900">
+
+  <h1 class="text-xl font-bold mb-2">__PRODUCT_NAME__</h1>
+
+  <p class="mb-4">__PRODUCT_DESCRIPTION__</p>
+
+
+
+  <textarea id="userInput" rows="5"
+
+    class="w-full bg-slate-800 p-2 rounded mb-4"></textarea>
+
+
+
+  <button id="submitBtn"
+
+    class="bg-[__THEME_COLOR__] px-4 py-2 rounded">
+
+    Generate
+
+  </button>
+
+
+
+  <pre id="output" class="mt-4 bg-slate-800 p-4 rounded"></pre>
+
+
+
+<script>
+
+document.getElementById("submitBtn").onclick = async () => {
+
+  const output = document.getElementById("output");
+
+  const input = document.getElementById("userInput").value.trim();
+
+  if (!input) return alert("Enter input");
+
+  output.textContent = "Thinking...";
+
+
+
+  const res = await fetch("/api/generate", {
+
+    method: "POST",
+
+    headers: {"Content-Type":"application/json"},
+
+    body: JSON.stringify({ input })
+
+  });
+
+
+
+  const data = await res.json();
+
+  output.textContent = data.output || "(no output)";
+
+};
+
+</script>
+
+</body>
+
+</html>
