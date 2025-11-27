@@ -46,29 +46,81 @@ export default {
 
   async fetch(request, env) {
 
-    if (new URL(request.url).pathname !== "/api/generate")
+    const url = new URL(request.url);
+
+    if (url.pathname !== "/api/generate")
 
       return new Response("Not Found", { status: 404 });
 
 
 
-    const { input } = await request.json();
+    const method = request.method;
 
 
 
-    const messages = [
+    // Handle GET request
 
-      { role: "system", content: PRODUCT_CONFIG.systemPrompt },
+    if (method === "GET") {
 
-      { role: "user", content: input }
+      return new Response(JSON.stringify({
 
-    ];
+        status: "ok",
+
+        message: "API online. Use POST to send input."
+
+      }), {
+
+        status: 200,
+
+        headers: {"Content-Type":"application/json"}
+
+      });
+
+    }
 
 
 
-    const out = await callOpenAI(env.OPENAI_API_KEY, messages, PRODUCT_CONFIG.model);
+    // Handle POST request
 
-    return new Response(JSON.stringify({ output: out }), {
+    if (method === "POST") {
+
+      const { input } = await request.json();
+
+
+
+      const messages = [
+
+        { role: "system", content: PRODUCT_CONFIG.systemPrompt },
+
+        { role: "user", content: input }
+
+      ];
+
+
+
+      const out = await callOpenAI(env.OPENAI_API_KEY, messages, PRODUCT_CONFIG.model);
+
+      return new Response(JSON.stringify({ output: out }), {
+
+        headers: {"Content-Type":"application/json"}
+
+      });
+
+    }
+
+
+
+    // For any other method, return a friendly response instead of 405
+
+    return new Response(JSON.stringify({
+
+      status: "error",
+
+      message: "Method not supported. Please use GET or POST."
+
+    }), {
+
+      status: 200,
 
       headers: {"Content-Type":"application/json"}
 
