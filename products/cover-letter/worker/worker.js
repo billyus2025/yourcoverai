@@ -401,6 +401,11 @@ export default {
       return handleCheckout(request, env);
     }
 
+    // Route: /create-checkout-session
+    if (pathname === "/create-checkout-session" && method === "POST") {
+      return handleCheckout(request, env);
+    }
+
     // Route: /api/checkout/success
     if (pathname === "/api/checkout/success" && method === "GET") {
       return handleCheckoutSuccess(request, env);
