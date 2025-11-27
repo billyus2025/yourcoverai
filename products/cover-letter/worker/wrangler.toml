@@ -2,3 +2,10 @@ name = "yourcoverai"
 main = "worker.js"
 compatibility_date = "2024-01-01"
 
+[[kv_namespaces]]
+binding = "LICENSES"
+id = "99176a33bd1f4293be4380fe7c425ac7"
+
+[[kv_namespaces]]
+binding = "FREE_USAGE"
+id = "737d6c4e60e14a19bd16f7fab83b68e4"
