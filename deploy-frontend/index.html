@@ -598,26 +598,28 @@
           body: JSON.stringify({ plan })
         });
 
+        // Check if response is ok
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ error: `HTTP ${response.status}: ${response.statusText}` }));
+          throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+        }
+
         const data = await response.json();
 
         if (data.error) {
-          alert('Error: ' + data.error);
-          button.disabled = false;
-          button.textContent = originalText;
-          return;
+          throw new Error(data.error);
         }
 
         if (data.url) {
           // Redirect to Stripe Checkout
           window.location.href = data.url;
         } else {
-          alert('Error: No checkout URL received');
-          button.disabled = false;
-          button.textContent = originalText;
+          throw new Error('No checkout URL received from server');
         }
       } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to create checkout session. Please try again.');
+        console.error('Checkout error:', error);
+        const errorMessage = error.message || 'Failed to create checkout session. Please try again.';
+        alert('Error: ' + errorMessage + '\n\nPlease check:\n1. Worker is deployed\n2. Stripe environment variables are configured\n3. Network connection is stable');
         button.disabled = false;
         button.textContent = originalText;
       }

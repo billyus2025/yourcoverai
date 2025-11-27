@@ -268,8 +268,20 @@ async function handleCheckout(request, env) {
 
   } catch (error) {
     console.error("Error in checkout handler:", error);
+    const errorMessage = error.message || "Internal server error";
+    console.error("Checkout error details:", {
+      message: errorMessage,
+      stack: error.stack,
+      env: {
+        hasSecretKey: !!env.STRIPE_SECRET_KEY,
+        hasMonthlyPrice: !!env.STRIPE_PRICE_MONTHLY,
+        hasYearlyPrice: !!env.STRIPE_PRICE_YEARLY,
+        hasBaseUrl: !!env.APP_BASE_URL
+      }
+    });
     return new Response(JSON.stringify({
-      error: error.message || "Internal server error"
+      error: errorMessage,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     }), {
       status: 500,
       headers: {"Content-Type":"application/json"}
