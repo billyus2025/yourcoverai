@@ -1,5 +1,5 @@
 // Refactored Worker using Shared Core
-import config from "./config.js";
+import config from "../config.js";
 import { checkLicense, checkFreeUsage, createLicense } from "../../../shared/license.js";
 import { createCheckoutSession, verifyStripeSession } from "../../../shared/stripe.js";
 import { callOpenAI } from "../../../shared/openai.js";
