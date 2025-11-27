@@ -1,79 +1,207 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
   <meta charset="UTF-8" />
-
-  <title>AI Cover Letter Generator</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YourCoverAI - AI 求职信生成器</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    }
+    .loading-spinner {
+      border: 3px solid #f3f4f6;
+      border-top: 3px solid #0f766e;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <div class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <h1 class="text-3xl font-bold text-gray-900 mb-1">YourCoverAI</h1>
+      <p class="text-gray-600 text-sm">AI 求职信生成器 (AI-powered Cover Letter Generator)</p>
+    </div>
+  </div>
 
-<body class="p-6 text-white bg-slate-900">
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Left: Input Section -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <label for="userInput" class="block text-sm font-medium text-gray-700 mb-2">
+          Job Description
+        </label>
+        <textarea
+          id="userInput"
+          rows="12"
+          max-height="300px"
+          placeholder="Paste job description or describe the job here..."
+          class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0f766e] focus:border-transparent resize-none text-gray-900 placeholder-gray-400"
+          style="max-height: 300px; overflow-y: auto;"
+        ></textarea>
+        <button
+          id="submitBtn"
+          class="mt-4 w-full bg-[#0f766e] hover:bg-[#0d6b63] text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+        >
+          <span id="btnText">Generate Cover Letter</span>
+        </button>
+      </div>
 
-  <h1 class="text-xl font-bold mb-2">AI Cover Letter Generator</h1>
+      <!-- Right: Output Section -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-2">
+          <label class="block text-sm font-medium text-gray-700">
+            Generated Cover Letter
+          </label>
+          <button
+            id="copyBtn"
+            class="text-sm text-[#0f766e] hover:text-[#0d6b63] font-medium px-3 py-1 rounded transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            style="display: none;"
+          >
+            Copy
+          </button>
+        </div>
+        <div id="loadingState" class="hidden text-center py-12">
+          <div class="loading-spinner mx-auto mb-4"></div>
+          <p class="text-gray-600">AI is writing your cover letter…</p>
+        </div>
+        <textarea
+          id="output"
+          rows="12"
+          readonly
+          class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 resize-none fade-in"
+          style="display: none; min-height: 300px;"
+        ></textarea>
+        <div id="emptyState" class="text-center py-12 text-gray-400">
+          <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <p>Your generated cover letter will appear here</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p class="mb-4">AI tool for AI Cover Letter Generator</p>
+  <script>
+    const userInput = document.getElementById('userInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const output = document.getElementById('output');
+    const copyBtn = document.getElementById('copyBtn');
+    const loadingState = document.getElementById('loadingState');
+    const emptyState = document.getElementById('emptyState');
 
+    submitBtn.addEventListener('click', async () => {
+      const input = userInput.value.trim();
+      
+      if (!input) {
+        alert('Please enter a job description');
+        return;
+      }
 
+      // Disable button and show loading
+      submitBtn.disabled = true;
+      btnText.innerHTML = '<div class="loading-spinner"></div>Generating...';
+      loadingState.classList.remove('hidden');
+      output.style.display = 'none';
+      emptyState.style.display = 'none';
+      copyBtn.style.display = 'none';
 
-  <textarea id="userInput" rows="5"
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ input })
+        });
 
-    class="w-full bg-slate-800 p-2 rounded mb-4"></textarea>
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
 
+        const data = await res.json();
+        
+        if (data.error) {
+          throw new Error(data.error);
+        }
 
+        const coverLetter = data.output || 'No output generated';
+        
+        // Show output
+        output.value = coverLetter;
+        output.style.display = 'block';
+        loadingState.classList.add('hidden');
+        emptyState.style.display = 'none';
+        copyBtn.style.display = 'block';
+        
+        // Scroll output into view
+        output.scrollTop = 0;
+        
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to generate cover letter: ' + error.message);
+        loadingState.classList.add('hidden');
+        emptyState.style.display = 'block';
+        copyBtn.style.display = 'none';
+      } finally {
+        // Re-enable button
+        submitBtn.disabled = false;
+        btnText.textContent = 'Generate Cover Letter';
+      }
+    });
 
-  <button id="submitBtn"
+    // Copy button functionality
+    copyBtn.addEventListener('click', async () => {
+      const text = output.value;
+      
+      if (!text) {
+        return;
+      }
 
-    class="bg-[#0f766e] px-4 py-2 rounded">
+      try {
+        await navigator.clipboard.writeText(text);
+        
+        // Show "Copied!" feedback
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('text-green-600');
+        
+        setTimeout(() => {
+          copyBtn.textContent = originalText;
+          copyBtn.classList.remove('text-green-600');
+        }, 1000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy to clipboard');
+      }
+    });
 
-    Generate
-
-  </button>
-
-
-
-  <pre id="output" class="mt-4 bg-slate-800 p-4 rounded"></pre>
-
-
-
-<script>
-
-document.getElementById("submitBtn").onclick = async () => {
-
-  const output = document.getElementById("output");
-
-  const input = document.getElementById("userInput").value.trim();
-
-  if (!input) return alert("Enter input");
-
-  output.textContent = "Thinking...";
-
-
-
-  const res = await fetch("/api/generate", {
-
-    method: "POST",
-
-    headers: {"Content-Type":"application/json"},
-
-    body: JSON.stringify({ input })
-
-  });
-
-
-
-  const data = await res.json();
-
-  output.textContent = data.output || "(no output)";
-
-};
-
-</script>
-
+    // Allow Enter key to submit (Ctrl+Enter or Cmd+Enter)
+    userInput.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        submitBtn.click();
+      }
+    });
+  </script>
 </body>
-
 </html>
