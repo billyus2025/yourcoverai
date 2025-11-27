@@ -1,0 +1,53 @@
+{
+  "structure": {
+    "description": "Video script template for short-form content platforms",
+    "required_fields": [
+      "name",
+      "product_type",
+      "platform",
+      "language"
+    ],
+    "output_structure": {
+      "name": "Product name",
+      "platform": "tiktok | shorts | xiaohongshu",
+      "duration_seconds": "Target video length",
+      "language": "en | zh",
+      "voiceover_script": "Complete narration text",
+      "scenes": [
+        {
+          "index": "Scene number",
+          "time_range": "Time range (e.g., 0-3s)",
+          "shot_description": "Visual description of the shot",
+          "on_screen_text": "Text overlay for the scene",
+          "ui_elements": "UI elements to overlay (buttons, cursors, etc.)"
+        }
+      ],
+      "bgm_style": "Background music style recommendation",
+      "cta": {
+        "text": "Call-to-action text",
+        "url": "Product URL"
+      }
+    }
+  },
+  "platform_guidelines": {
+    "tiktok": {
+      "hook_time": "0-3s",
+      "pace": "fast",
+      "style": "energetic, attention-grabbing, trend-focused",
+      "subtitle_style": "bold, large, emoji-friendly"
+    },
+    "shorts": {
+      "hook_time": "0-5s",
+      "pace": "moderate-fast",
+      "style": "informative, value-driven, clear explanation",
+      "subtitle_style": "clear, readable, professional"
+    },
+    "xiaohongshu": {
+      "hook_time": "0-3s",
+      "pace": "moderate",
+      "style": "authentic, experience-focused, community-driven",
+      "subtitle_style": "elegant, minimal, aesthetic"
+    }
+  }
+}
+
