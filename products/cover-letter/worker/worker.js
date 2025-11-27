@@ -22,7 +22,7 @@ async function callOpenAI(apiKey, messages, model) {
 
     headers: {
 
-      Authorization: `Bearer \${apiKey}`,
+      Authorization: `Bearer ${apiKey}`,
 
       "Content-Type": "application/json"
 
@@ -31,6 +31,18 @@ async function callOpenAI(apiKey, messages, model) {
     body: JSON.stringify({ model, messages })
 
   });
+
+
+
+  if (!res.ok) {
+
+    const errorText = await res.text();
+
+    console.error("OpenAI API error:", res.status, errorText);
+
+    throw new Error(`OpenAI API error: ${res.status} ${errorText}`);
+
+  }
 
 
 
@@ -84,27 +96,85 @@ export default {
 
     if (method === "POST") {
 
-      const { input } = await request.json();
+      try {
+
+        const { input } = await request.json();
 
 
 
-      const messages = [
+        if (!input) {
 
-        { role: "system", content: PRODUCT_CONFIG.systemPrompt },
+          return new Response(JSON.stringify({
 
-        { role: "user", content: input }
+            error: "Missing input field"
 
-      ];
+          }), {
+
+            status: 400,
+
+            headers: {"Content-Type":"application/json"}
+
+          });
+
+        }
 
 
 
-      const out = await callOpenAI(env.OPENAI_API_KEY, messages, PRODUCT_CONFIG.model);
+        if (!env.OPENAI_API_KEY) {
 
-      return new Response(JSON.stringify({ output: out }), {
+          return new Response(JSON.stringify({
 
-        headers: {"Content-Type":"application/json"}
+            error: "OPENAI_API_KEY not configured"
 
-      });
+          }), {
+
+            status: 500,
+
+            headers: {"Content-Type":"application/json"}
+
+          });
+
+        }
+
+
+
+        const messages = [
+
+          { role: "system", content: PRODUCT_CONFIG.systemPrompt },
+
+          { role: "user", content: input }
+
+        ];
+
+
+
+        const out = await callOpenAI(env.OPENAI_API_KEY, messages, PRODUCT_CONFIG.model);
+
+        return new Response(JSON.stringify({ output: out }), {
+
+          headers: {"Content-Type":"application/json"}
+
+        });
+
+      } catch (error) {
+
+        console.error("Error in POST handler:", error);
+
+        return new Response(JSON.stringify({
+
+          error: error.message || "Internal server error",
+
+          details: error.stack
+
+        }), {
+
+          status: 500,
+
+          headers: {"Content-Type":"application/json"}
+
+        });
+
+      }
 
     }
 
