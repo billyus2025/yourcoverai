@@ -17,12 +17,7 @@ async function hashString(str) {
 
 // Generate random license key
 function generateLicenseKey() {
-  const chars = '0123456789abcdef';
-  let result = '';
-  for (let i = 0; i < 32; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+  return `yc_${crypto.randomUUID()}`;
 }
 
 // Get current date string (YYYY-MM-DD)
@@ -47,7 +42,7 @@ async function checkLicense(env, licenseKey) {
     }
 
     // Update usage count
-    license.usedCalls = (license.usedCalls || 0) + 1;
+    license.used = (license.used || 0) + 1;
     await env.LICENSES.put(`license:${licenseKey}`, JSON.stringify(license));
 
     return { valid: true, license };
@@ -151,7 +146,7 @@ async function handleGenerate(request, env) {
         return new Response(JSON.stringify({
           error: "free_limit_reached",
           message: "Free limit reached. Please upgrade to continue.",
-          upgrade_url: `${env.APP_BASE_URL || 'https://yourcoverai.billyus2025.workers.dev'}/pricing.html`
+          upgrade_url: "/#pricing"
         }), {
           status: 200,
           headers: {"Content-Type":"application/json"}
@@ -347,8 +342,8 @@ async function handleCheckoutSuccess(request, env) {
     const licenseData = {
       plan: plan,
       createdAt: new Date().toISOString(),
-      maxCalls: -1, // -1 means unlimited
-      usedCalls: 0
+      max: -1, // -1 means unlimited
+      used: 0
     };
 
     await env.LICENSES.put(`license:${licenseKey}`, JSON.stringify(licenseData));
@@ -408,6 +403,11 @@ export default {
 
     // Route: /api/checkout/success
     if (pathname === "/api/checkout/success" && method === "GET") {
+      return handleCheckoutSuccess(request, env);
+    }
+
+    // Route: /checkout-success
+    if (pathname === "/checkout-success" && method === "GET") {
       return handleCheckoutSuccess(request, env);
     }
 

@@ -34,13 +34,13 @@
         </div>
         <p class="text-sm text-gray-600 mb-6">Your license key has been saved to your browser. You can now use unlimited generations!</p>
         <a href="index.html" class="inline-block bg-[#0f766e] hover:bg-[#0d6b63] text-white font-medium py-3 px-8 rounded-lg transition-colors">
-          Back to App
+          Go to App
         </a>
       </div>
 
       <div id="error" class="hidden mb-6">
         <p class="text-lg text-red-600 mb-4" id="errorMessage"></p>
-        <a href="pricing.html" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-medium py-3 px-8 rounded-lg transition-colors">
+        <a href="index.html#pricing" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-medium py-3 px-8 rounded-lg transition-colors">
           Back to Pricing
         </a>
       </div>
@@ -60,10 +60,10 @@
       }
 
       try {
-        const response = await fetch(`/api/checkout/success?session_id=${sessionId}`);
+        const response = await fetch(`/checkout-success?session_id=${sessionId}`);
         const data = await response.json();
 
-        if (data.error) {
+        if (data.error || data.status === 'error') {
           document.getElementById('loading').classList.add('hidden');
           document.getElementById('error').classList.remove('hidden');
           document.getElementById('errorMessage').textContent = data.error || 'Failed to activate license. Please contact support.';
@@ -72,7 +72,7 @@
 
         if (data.status === 'ok' && data.license) {
           // Save license to localStorage
-          localStorage.setItem('yc_license_key', data.license);
+          localStorage.setItem('yc_license', data.license);
 
           // Show success message
           document.getElementById('loading').classList.add('hidden');
@@ -94,4 +94,3 @@
   </script>
 </body>
 </html>
-
