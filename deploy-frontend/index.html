@@ -467,20 +467,36 @@
           headers['x-license-key'] = license;
         }
 
-        const res = await fetch('/api/generate', {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify({ 
-            input,
-            target_language: currentLang
-          })
-        });
-
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
+        let res;
+        try {
+          res = await fetch('/api/generate', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ 
+              input,
+              target_language: currentLang
+            })
+          });
+        } catch (networkError) {
+          // Network error (no internet, CORS, etc.)
+          throw new Error(`Network error: Unable to connect to server. Please check your internet connection.`);
         }
 
-        const data = await res.json();
+        // Parse response
+        let data;
+        try {
+          data = await res.json();
+        } catch (parseError) {
+          // Response is not JSON
+          const text = await res.text();
+          throw new Error(`Server error (${res.status}): ${text || res.statusText}`);
+        }
+
+        // Check HTTP status
+        if (!res.ok) {
+          const errorMsg = data.error || data.message || `HTTP ${res.status}: ${res.statusText}`;
+          throw new Error(errorMsg);
+        }
         
         if (data.error) {
           // Handle free limit reached
@@ -513,7 +529,7 @@
             emptyState.parentNode.insertBefore(upgradePrompt, emptyState);
             throw new Error(data.message || 'Free limit reached');
           }
-          throw new Error(data.error);
+          throw new Error(data.error || 'Unknown error occurred');
         }
 
         const coverLetter = data.output || 'No output generated';
@@ -530,8 +546,27 @@
         output.scrollTop = 0;
         
       } catch (error) {
-        console.error('Error:', error);
-        alert(`${translations.error_message || 'Something went wrong'}: ${error.message}`);
+        console.error('Generate error:', error);
+        
+        // Show user-friendly error message
+        let errorMessage = error.message || 'An unknown error occurred';
+        
+        // Map common errors to user-friendly messages
+        if (errorMessage.includes('Network error')) {
+          errorMessage = 'Unable to connect to server. Please check your internet connection and try again.';
+        } else if (errorMessage.includes('HTTP 500')) {
+          errorMessage = 'Server error. Please try again in a moment. If the problem persists, contact support.';
+        } else if (errorMessage.includes('HTTP 401') || errorMessage.includes('HTTP 403')) {
+          errorMessage = 'Authentication error. Please refresh the page and try again.';
+        } else if (errorMessage.includes('HTTP 404')) {
+          errorMessage = 'API endpoint not found. The service may be under maintenance.';
+        } else if (errorMessage.includes('OPENAI_API_KEY')) {
+          errorMessage = 'Service configuration error. Please contact support.';
+        }
+        
+        // Show error alert with helpful message
+        alert(`Error: ${errorMessage}\n\nIf this problem persists, please:\n1. Check your internet connection\n2. Refresh the page\n3. Contact support if needed`);
+        
         loadingState.classList.add('hidden');
         emptyState.style.display = 'block';
         copyBtn.style.display = 'none';
